@@ -1,0 +1,176 @@
+
+<div class="container">
+    <div class="center-align">
+        <h2>Welcome to <span class="blue-text text-darken-2">The Cyber Innovation Laboratory</span></h2>
+    </div>
+
+    <div *ngIf="showActiveProjects()" class="center-align" style="padding: 2em">
+        <a class="waves-effect waves-light btn blue" routerLink="/new-project">
+            New Project
+        </a>
+    </div>
+
+    <div *ngIf="showActiveProjects()" class="card-panel">
+        <h3>Active Projects</h3>
+        <div *ngIf="!activeProjectsExist()">
+            No active projects
+        </div>
+        <div *ngIf="activeProjectsExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of activeProjects">
+                        <td>
+                            <a (click)="projectDetails(project.id)">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>{{ project.state }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-panel">
+        <h3>Assigned Tasks</h3>
+        <div *ngIf="!tasksExist()">
+            No tasks assigned
+        </div>
+        <div *ngIf="tasksExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Role</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of tasks">
+                        <td>{{ task.task__name }}</td>
+                        <td>{{ task.role }}</td>
+                        <td>{{ task.task__start }}</td>
+                        <td>{{ task.task__end }}</td>
+                        <td>{{ task.hours }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-panel">
+        <h3>Submitted Projects</h3>
+        <div *ngIf="!submittedProjectsExist()">
+            No submitted projects
+        </div>
+        <div *ngIf="submittedProjectsExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of submittedProjects">
+                        <td>
+                            <a (click)="projectDetails(project.id)">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>{{ project.state }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-panel">
+        <h3>Recommended Projects</h3>
+        <div *ngIf="!recommendedProjectsExist()">
+            No recommended projects
+        </div>
+        <div *ngIf="recommendedProjectsExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of recommendedProjects">
+                        <td>
+                            <a (click)="projectDetails(project.id)">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>{{ project.state }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-panel">
+        <h3>Approved Projects</h3>
+        <div *ngIf="!approvedProjectsExist()">
+            No approved projects
+        </div>
+        <div *ngIf="approvedProjectsExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of approvedProjects">
+                        <td>
+                            <a (click)="projectDetails(project.id)">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>{{ project.state }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-panel">
+        <h3>Denied Projects</h3>
+        <div *ngIf="!deniedProjectsExist()">
+            No denied projects
+        </div>
+        <div *ngIf="deniedProjectsExist()">
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of deniedProjects">
+                        <td>
+                            <a (click)="projectDetails(project.id)">
+                                {{ project.name }}
+                            </a>
+                        </td>
+                        <td>{{ project.state }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

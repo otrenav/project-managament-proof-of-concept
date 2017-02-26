@@ -1,0 +1,175 @@
+
+<div class="container">
+    <div class="card-panel">
+        <div class="center-align">
+            <h2>Project <span class="blue-text text-darken-2">Details</span></h2>
+            <p>To see the full project structure click on "Open"</p>
+        </div>
+    </div>
+    <div class="card-panel">
+        <div class="row">
+            <div class="row">
+                <div class="col s4">
+                    <h3>Project</h3>
+                </div>
+                <div class="col s8">
+                    <h4>{{ selectedProject.name }}</h4>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s4">
+                    <h3>Status</h3>
+                </div>
+                <div class="col s8">
+                    <h4>{{ selectedProject.state_text }}</h4>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s4">
+                    <h3>Objective</h3>
+                </div>
+                <div class="col s8">
+                    <textarea id="objectiveMarkdownID"></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s4">
+                    <h3>Background</h3>
+                </div>
+                <div class="col s8">
+                    <textarea id="backgroundMarkdownID"></textarea>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s4">
+                    <h3>Creator</h3>
+                </div>
+                <div class="col s8">
+                    <h4>{{ selectedProject.creator }}</h4>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s4">
+                    <h3>Recommenders</h3>
+                </div>
+                <div class="col s8">
+                    <div *ngIf="selectedProject.recommenders.length >= 1">
+                        <ul class="collection">
+                            <li *ngFor="let recommender of selectedProject.recommenders"
+                                class="collection-item">
+                                <h4>{{ recommender }}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="selectedProject.recommenders.length == 0">
+                        <h4>Has not been recommended</h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col s12">
+                    <h3>Comment history</h3>
+                </div>
+                <div class="col s12">
+                    <div *ngIf="selectedProject.comments.length >= 1">
+                        <table class="striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Comment</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let comment of selectedProject.comments">
+                                    <td>{{ comment.user }}</td>
+                                    <td>{{ comment.action }}</td>
+                                    <td>{{ comment.comment }}</td>
+                                    <td>{{ comment.date }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="selectedProject.comments.length == 0">
+                        <h4>Has not been commented</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row right-align">
+            <!-- <button *ngIf="isViewable()"
+                 (click)="viewProject(selectedProject.id)"
+                 class="waves-effect waves-light btn white">
+                 View
+                 </button> -->
+            <button *ngIf="isOpenable()"
+                    (click)="editProject(selectedProject.id)"
+                    class="waves-effect waves-light btn blue">
+                Open
+            </button>
+            <button *ngIf="isDeletable()"
+                    (click)="deleteProject(selectedProject.id)"
+                    class="waves-effect waves-light btn red">
+                Delete
+            </button>
+        </div>
+        <div class="row">
+            <h2>Comment</h2>
+            <!-- NOTE: Even though this is a Markdown
+                 form, I suggest you use simple
+                 small comments since they won't be
+                 displayed correctly in the table.
+
+                 If you want you may fix it, but there
+                 will be a lot of wasted space if you
+                 try to render the markdown. -->
+            <form [formGroup]="form">
+                <textarea id="commentMarkdownID"
+                          formControlName="comment"
+                          class="maerialize-textarea">
+
+                </textarea>
+            </form>
+        </div>
+        <div class="row right-align">
+            <button *ngIf="isCommentable()"
+                    (click)="comment(selectedProject.id)"
+                    class="waves-effect waves-light btn blue">
+                Comment
+            </button>
+            <button *ngIf="isSubmittable()"
+                    (click)="commentAndSubmit(selectedProject.id)"
+                    class="waves-effect waves-light btn green">
+                Submit
+            </button>
+            <button *ngIf="isRecommendable()"
+                    (click)="commentAndRecommend(selectedProject.id)"
+                    class="waves-effect waves-light btn green">
+                Recommend
+            </button>
+            <button *ngIf="isApprovable()"
+                    (click)="commentAndApprove(selectedProject.id)"
+                    class="waves-effect waves-light btn green">
+                Approve
+            </button>
+            <button *ngIf="isReturnable()"
+                    (click)="commentAndReturn(selectedProject.id)"
+                    class="waves-effect waves-light btn orange">
+                Return
+            </button>
+            <button *ngIf="isDeniable()"
+                    (click)="commentAndDeny(selectedProject.id)"
+                    class="waves-effect waves-light btn red">
+                Deny
+            </button>
+            <p class="soft-text">Any of the above buttons will save the comment and apply the mentioned action.</p>
+        </div>
+    </div>
+</div>

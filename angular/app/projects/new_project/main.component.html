@@ -1,0 +1,344 @@
+
+<div class="container" style="padding-bottom: 0.5em;">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3">
+                <a [class.active]="isTabActive('base')"
+                   (click)="activateTab('base')">
+                    Base
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a [class.active]="isTabActive('tasks')"
+                   (click)="activateTab('tasks')">
+                    Tasks
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a [class.active]="isTabActive('resources')"
+                   (click)="activateTab('resources')">
+                    Resources
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a [class.active]="isTabActive('deliverables')"
+                   (click)="activateTab('deliverables')">
+                    Deliverables
+                </a>
+            </li>
+            <li class="tab col s3">
+                <a [class.active]="isTabActive('staff')"
+                   (click)="activateTab('staff')">
+                    Staffing
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="disabledMessage" class="card-panel grey darken-1 white-text">
+        <p class="center-align">
+            You don't have permission to change the form, so it's disabled.
+        </p>
+        <p class="center-align">
+            Please use the navigation buttons on the top bar to move around.
+        </p>
+    </div>
+    <div *ngIf="errorMessage" class="card-panel red white-text">
+        <p class="center-align">
+            {{ errorMessage }}
+        </p>
+    </div>
+</div>
+
+
+<fieldset [disabled]="disabled" style="border-style: none;">
+    <form novalidate [formGroup]="form">
+        <!-- Base -->
+        <div [class.invisible]="!isTabActive('base')" class="container">
+            <div class="card-panel">
+                <div class="center-align">
+                    <h2>What will you <span class="blue-text text-darken-2">name</span> it?</h2>
+                    <p>Describe Objective & Background</p>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="row">
+                    <div formGroupName="base">
+                        Name of <span class="blue-text text-darken-2">the project</span>?
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input formControlName="name" type="text">
+                            </div>
+                        </div>
+
+                        What are your <span class="blue-text text-darken-2">project objective</span>?
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="objectiveMarkdownID" formControlName="objective" class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+
+                        What is the <span class="blue-text text-darken-2">background</span> for your project?
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="backgroundMarkdownID" formControlName="background" class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-align" style="padding: 2em">
+                    <button (click)="activateTab('tasks')"
+                            class="waves-effect waves-light btn blue">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks -->
+        <div [class.invisible]="!isTabActive('tasks')" class="container">
+            <div class="card-panel">
+                <div class="center-align">
+                    <h2>What will you <span class="blue-text text-darken-2">work</span> on?</h2>
+                    <p>List the tasks associated with the project</p>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s5">Name</div>
+                    <div class="col s3">Start</div>
+                    <div class="col s3">End</div>
+                    <div class="col s1"></div>
+                    <br><hr>
+                </div>
+                <div class="row">
+                    <div formArrayName="tasks">
+                        <div *ngFor="let task of tasks.controls; let i=index;"
+                             [formGroupName]="i">
+                            <div class="input-field col s5">
+                                <input formControlName="name" type="text" >
+                            </div>
+                            <div class="input-field col s3">
+                                <input formControlName="start" type="date" class="datepicker">
+                            </div>
+                            <div class="input-field col s3">
+                                <input formControlName="end" type="date" class="datepicker">
+                            </div>
+                            <div class="input-field col s1">
+                                <i class="material-icons button"
+                                   (click)="deleteTask(i)">
+                                    delete
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button (click)="addTask()"
+                            class="waves-effect waves-light btn white black-text">
+                        New Task
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="right-align" style="padding: 2em">
+                        <button (click)="activateTab('base')"
+                                class="waves-effect waves-light btn blue">
+                            Back
+                        </button>
+                        <button (click)="activateTab('resources')"
+                                class="waves-effect waves-light btn blue">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div [class.invisible]="!isTabActive('resources')" class="container">
+            <div class="card-panel">
+                <div class="center-align">
+                    <h2>What will you <span class="blue-text text-darken-2">need</span>?</h2>
+                    <p>List the resources associated with the project</p>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s5">Details</div>
+                    <div class="col s3">Justification</div>
+                    <div class="col s3">Task</div>
+                    <div class="col s1"></div>
+                    <br><hr>
+                </div>
+                <div class="row">
+                    <div formArrayName="resources">
+                        <div *ngFor="let resource of resources.controls; let i=index;"
+                             [formGroupName]="i">
+                            <div class="input-field col s5">
+                                <input formControlName="details" type="text" >
+                            </div>
+                            <div class="input-field col s3">
+                                <input formControlName="justification" type="text">
+                            </div>
+                            <div class="input-field col s3">
+                                <select formControlName="task" class="browser-default">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option *ngFor="let task of getTasks(); let i=index;" [value]="i">{{ task }}</option>
+                                </select>
+                            </div>
+                            <div class="col s1">
+                                <i class="material-icons button"
+                                   (click)="deleteResource(i)">
+                                    delete
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button (click)="addResource()"
+                            class="waves-effect waves-light btn white black-text">
+                        New Resource
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="right-align" style="padding: 2em">
+                        <button (click)="activateTab('tasks')"
+                                class="waves-effect waves-light btn blue">
+                            Back
+                        </button>
+                        <button (click)="activateTab('deliverables')"
+                                class="waves-effect waves-light btn blue">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deliverables -->
+        <div [class.invisible]="!isTabActive('deliverables')" class="container">
+            <div class="card-panel">
+                <div class="center-align">
+                    <h2>What will you <span class="blue-text text-darken-2">deliver</span>?</h2>
+                    <p>List the deliverables associated with the project</p>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s11">Deliverable</div>
+                    <div class="col s1"></div>
+                    <br><hr>
+                </div>
+                <div class="row">
+                    <div formArrayName="deliverables">
+                        <div *ngFor="let deliverable of deliverables.controls; let i=index;"
+                             [formGroupName]="i">
+                            <div class="input-field col s11">
+                                <input formControlName="description" type="text">
+                            </div>
+                            <div class="col s1">
+                                <i class="material-icons button"
+                                   (click)="deleteDeliverable(i)">
+                                    delete
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button (click)="addDeliverable()"
+                            class="waves-effect waves-light btn white black-text">
+                        New Deliverable
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="right-align" style="padding: 2em">
+                        <button (click)="activateTab('resources')"
+                                class="waves-effect waves-light btn blue">
+                            Back
+                        </button>
+                        <button (click)="activateTab('staff')"
+                                class="waves-effect waves-light btn blue">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff -->
+        <div [class.invisible]="!isTabActive('staff')" class="container">
+            <div class="card-panel">
+                <div class="center-align">
+                    <h2>Who will you <span class="blue-text text-darken-2">work</span> with?</h2>
+                    <p>List the staffing resources associated with the project</p>
+                </div>
+            </div>
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s3">Staff Member</div>
+                    <div class="col s3">Assigned Task</div>
+                    <div class="col s3">Role</div>
+                    <div class="col s2">Total Hours</div>
+                    <div class="col s1"></div>
+                    <br><hr>
+                </div>
+                <div class="row">
+                    <div formArrayName="staffs">
+                        <div *ngFor="let staff of staffs.controls; let i=index;"
+                             [formGroupName]="i">
+                            <div class="input-field col s3">
+                                <select formControlName="user" class="browser-default">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option *ngFor="let user of getUsers()" [value]="user.id">{{ user.username }}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s3">
+                                <select formControlName="task" class="browser-default">
+                                    <option value="" disabled selected>Choose your option</option>
+                                    <option *ngFor="let task of getTasks(); let i=index;" [value]="i">{{ task }}</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s3">
+                                <input formControlName="role" type="text">
+                            </div>
+                            <div class="input-field col s2">
+                                <input formControlName="hours" type="number">
+                            </div>
+                            <div class="col s1">
+                                <i class="material-icons button"
+                                   (click)="deleteStaff(i)">
+                                    delete
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button (click)="addStaff()"
+                            class="waves-effect waves-light btn white black-text">
+                        Add Staff
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="right-align" style="padding: 2em">
+                        <button (click)="activateTab('deliverables')"
+                                class="waves-effect waves-light btn blue">
+                            Back
+                        </button>
+                        <button (click)="saveForm(form)"
+                                class="waves-effect waves-light btn red">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+
+<!-- <div class="container">
+     <div class="card-panel">
+     <p>Form: {{ form.value | json }}</p>
+     </div>
+     </div> -->

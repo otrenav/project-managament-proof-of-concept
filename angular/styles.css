@@ -1,0 +1,73 @@
+
+body {
+    background-color: #EFEFEF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.3em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+.logo {
+    padding-top: 0.6em;
+    height: 80%
+}
+
+.tabs .tab a {
+    color: #1976d2;
+}
+
+.tabs .tab a:hover {
+    color: #FFFFFF;
+    background-color: #bdbdbd;
+}
+
+.tabs .tab a.active {
+    color: #FFFFFF;
+    background-color: #42a5f5;
+}
+
+i.material-icons.button {
+    font-size: 2em;
+    color: #555555;
+}
+
+i.material-icons.button:hover {
+    font-size: 2em;
+    color: #1976d2;
+}
+
+.container .row {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+hr {
+    margin-top: 1em;
+}
+
+form p {
+    text-align: center;
+}
+
+.invisible {
+    display: none;
+}
+
+p.soft-text {
+    font-size: 0.9em;
+    color: #AAAAAA;
+}

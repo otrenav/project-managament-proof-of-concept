@@ -1,0 +1,64 @@
+
+<div class="container" style="padding-bottom: 0.5em;">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6">
+                <a [class.active]="isTabActive('login')"
+                   (click)="activateTab('login')">
+                    Login
+                </a>
+            </li>
+            <li class="tab col s6">
+                <a [class.active]="isTabActive('newUser')"
+                   (click)="activateTab('newUser')">
+                    New User
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="message" class="container">
+    <div [class.green]="success"
+         [class.red]="!success"
+         class="card-panel">
+        <p style="color: white;">{{ message }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card-panel">
+        <div class="row">
+            <form novalidate [formGroup]="form">
+                <div class="row">
+                    <div class="input-field col s6">Username</div>
+                    <div class="input-field col s6">Password</div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input formControlName="username" type="text">
+                    </div>
+                    <div class="input-field col s6">
+                        <input formControlName="password" type="password">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="right-align" style="padding: 2em">
+                <div [class.invisible]="!isTabActive('login')">
+                    <button (click)="login(form)"
+                            class="waves-effect waves-light btn red">
+                        Login
+                    </button>
+                </div>
+                <div [class.invisible]="!isTabActive('newUser')">
+                    <button (click)="newUser(form)"
+                            class="waves-effect waves-light btn red">
+                        New User
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
