@@ -5,8 +5,7 @@
 
 # Project management app
 
-- Developed by Omar Trejo
-- Developed for client (CM)
+- Omar Trejo
 - February, 2017
 
 The client wanted to develop a quick, basic, proof-of-concept project management
