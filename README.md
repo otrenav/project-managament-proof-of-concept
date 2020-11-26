@@ -3,7 +3,7 @@
 
 ---
 
-# Project management app
+# Project management web app
 
 - Omar Trejo
 - February, 2017
