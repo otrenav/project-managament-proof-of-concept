@@ -2,7 +2,7 @@ Django==1.10.2                  # Django
 django-cors-headers==1.2.2      # CORS Headers
 django-debug-toolbar==1.6       # Debug toolbar for web browsers
 django-extensions==1.7.4        # runserver_plus and shell_plus
-Werkzeug==0.11.11               # Required by shell_plus
+Werkzeug==0.15.3               # Required by shell_plus
 django-markdown==0.8.4          # Markdown
 djangorestframework==3.5.1      # Django REST Framework
 djangorestframework-jwt==1.8.0  # Django REST Framework JWT
